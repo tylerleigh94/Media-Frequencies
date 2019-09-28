@@ -1,3 +1,12 @@
+---
+title: "Media Frequencies"
+author: "Tyler Leigh"
+date: "9/28/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 ####Libraries####
 library(easypackages)
 libs<-c("ggplot2", "tidyverse", "car", "haven", "readr", "dplyr", "naniar", "tm")
@@ -20,6 +29,15 @@ dat<- dat %>%
   replace_with_na_at(.vars=clean.length2, condition = ~.x %in% na.values.2)
 dat <-dat %>%
   replace_with_na_at(.vars=clean.length3, condition = ~.x %in% na.values.3)
+```
+# Distribution of Media Use
+### Notes
+* All Media types reported below are reported as binary indicators of whether or not a person used each media type or source (0=No, 1=Yes)
+* The function I used to strip out the names of the sources also removed punctuation. Not a problem for Newspapers and TV, but a few of the Internet sources lost the "." in ".com". If this data needs to be used externally, I can make sure that periods are still included.
+* Each source starts with [1] *Source Name* and is followed by the raw number of respondents selecting each option then the percent of respondents selecting each option. **Percents are based on the number of people who respondended to each question.** So for the specific media source questions, the percentages are based off of the number of people who use that source type. IE 28.6% of *television news viewers* watch ABC World News Tonight, *not* 28% of the sample.
+
+## Types of Media Used (Excluding Don't Knows, Refused, and Skips)
+```{r echo=FALSE}
 ####Media use frequencies####
 string5<-" From which of the following sources have you heard anything about politics?"
 for(x in 1:7){
@@ -36,6 +54,9 @@ for(x in 1:7){
   cat("\n")
   cat("\n")
 }
+```
+## Sources of TV News
+```{r echo=F}
 #TV 1 Frequencies
 string1<- " Which of the following programs do you watch regularly on television or online?"
 for(x in 1:22){
@@ -68,6 +89,9 @@ for(x in 1:21){
   cat("\n")
   cat("\n")
 }
+```
+## Newspaper Sources
+```{r echo=F}
 #Newspaper frequencies
 string3<-" What online or print newspapers do you read regularly?"
 for(x in 1:17){
@@ -84,6 +108,9 @@ for(x in 1:17){
   cat("\n")
   cat("\n")
 }
+```
+## Sources of Internet News
+```{r echo=F}
 #Internet News
 string4<-" Which of these internet news sites or blogs do you visit regularly, that is, at least once a month?"
 for(x in 1:26){
@@ -101,7 +128,5 @@ for(x in 1:26){
   cat("\n")
 }
 
-
-
-
+```
 
